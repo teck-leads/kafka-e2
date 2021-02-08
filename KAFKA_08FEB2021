@@ -1,0 +1,109 @@
+Apache Kafka
+
+Introduction to Kafka
+Kafka Producer
+Kafka Consumer
+Kafka internals
+kafka Connect
+Kafka Streaming
+Kafka Security
+Integrate kafka with other system
+Project 
+-------------------
+Kafka --> scalable messaging sytem
+X ----> Y
+ActiveMQ, RabitMQ, Strom
+Kafka ---> used with big data ecosystem/Spark
+
+What is Big Data?
+Structured 
+Semi-structured
+Unstructured
+Text, Image, Video
+1Kg of rice -> infrastructure 
+10kg of rice -> Infrastructure 
+100kg of rice -> Infrastructure, chef are requied
+
+100kg of paddy (raw data) -> scrub, cleanse
+Structured Data
+
+Distributed File system
+Kafka -> distributed publish subscribe messaging system 
+
+
+Point to point messaging system 
+Messages maintained in a queue
+only one consumer can consumer a particular msg
+once message is read, the msg will be removed
+
+Publish subscribe
+maintained in a topic
+many consumers can take message from more than one topoic
+once message is read, the msg will be removed based on the retention period
+---------
+Kafka is linearly scalable
+---------
+{key: ecomm, value:'hi how are you?'} --> p
+
+the consumer keeps track of the msgs it has consumbe  by keeping track on the offset of msgs
+
+------------------
+et kafka home on windows
+E:\Kafka\kafka_2.12-2.5.0>setx KAFKA_HOME E:\Kafka\kafka_2.12-2.5.0
+
+set path till bin
+Start zookeeper
+E:\Kafka\kafka_2.12-2.5.0\bin>windows\zookeeper-server-start.bat ..\config\zookeeper.properties
+Start kafka server
+E:\Kafka\kafka_2.12-2.5.0\bin>windows\kafka-server-start.bat ..\config\server.properties
+--------------------------
+
+Start zookeper
+E:\Kafka_28JAN\kafka_2.13-2.7.0\bin\windows\zookeeper-server-start.bat ..\config\zookeeper.properties
+
+Start kafka server-start
+E:\Kafka_28JAN\kafka_2.13-2.7.0\bin>windows\kafka-server-start.bat ..\config\server.properties
+
+Create topic
+kafka-topics --bootstrap-server localhost:9092 --topic first_topic --create --partitions 3 replication-factor 1
+kafka-topics --bootstrap-server localhost:9092 --topic twitter_tweets --create --partitions 6 replication-factor 1
+
+kafka-topics.bat --zookeeper localhost:2181 --create --topic Test123 --partitions 1 --replication-factor 1
+
+kafka-topics --zookeeper localhost:2181 --list
+kafka-topics --bootstrap-server localhost:9092 --list
+kafka-topics --zookeeper localhost:2181 --topic first_topic --describe
+kafka-topics --bootstrap-server localhost:9092 --topic first_topic --describe
+
+Create producer and send messages to topic
+E:\Kafka\kafka_2.12-2.5.0\bin>windows\kafka-console-producer.bat --broker-list 127.0.0.1:9092 --topic first_topic
+E:\Kafka\kafka_2.12-2.5.0\bin>windows\kafka-console-producer.bat --broker-list 127.0.0.1:9092 --topic first_topic --producer-property acks=all
+
+kafka-console-producer.bat --broker-list localhost:9092 --topic Test123 --from-beginning
+get only new messages after joined 
+kafka-console-producer.bat --broker-list localhost:9092 --topic Test123 
+
+kafka-topics.bat --zookeeper localhost:2181 --delete --topic Test123
+kafka-topics.bat --zookeeper localhost:2181 --describe --topic Test123
+
+Create consumer and subscribe to topic
+##Read only the latest messages
+E:\Kafka\kafka_2.12-2.5.0\bin>windows\kafka-console-consumer.bat --bootstrap-server 127.0.0.1:9092 --topic first_topic
+##Read all the messages
+E:\Kafka\kafka_2.12-2.5.0\bin>windows\kafka-console-consumer.bat --bootstrap-server 127.0.0.1:9092 --topic first_topic --from-beginning
+windows\kafka-console-consumer.bat --bootstrap-server 127.0.0.1:9092 --topic twitter_tweets
+Using groups
+windows\kafka-console-consumer.bat --bootstrap-server 127.0.0.1:9092 --topic first_topic --group mygroup
+using kafka-consumer-groups.bat
+E:\Kafka\kafka_2.12-2.5.0\bin>windows\kafka-consumer-groups.bat --bootstrap-server 127.0.0.1:9092 --list
+
+windows\kafka-consumer-groups.bat --bootstrap-server 127.0.0.1:9092 --describe --group mygroup
+windows\kafka-consumer-groups.bat --bootstrap-server 127.0.0.1:9092 --describe --group mygroup2
+windows\kafka-console-consumer.bat --bootstrap-server 127.0.0.1:9092 --topic first_topic --group mygroup3
+
+
+
+
+
+
+
