@@ -1,4 +1,6 @@
 from kafka import KafkaConsumer
+
+from kafka import KafkaAdminClient
 import json
 
 
@@ -7,9 +9,7 @@ if __name__ == "__main__":
                              bootstrap_servers='localhost:9092',
                              auto_offset_reset='earliest')
 
-    for msg in consumer:
-        # print(msg)
-        print(json.loads(msg.value))
+
 partition = consumer.partitions_for_topic('userInfo')
 print(partition)
         

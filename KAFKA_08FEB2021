@@ -59,16 +59,20 @@ E:\Kafka\kafka_2.12-2.5.0\bin>windows\kafka-server-start.bat ..\config\server.pr
 --------------------------
 
 Start zookeper
-E:\Kafka_28JAN\kafka_2.13-2.7.0\bin\windows\zookeeper-server-start.bat ..\config\zookeeper.properties
+E:\Kafka_28JAN\kafka_2.13-2.7.0\bin>
+
+windows\zookeeper-server-start.bat ..\config\zookeeper.properties
 
 Start kafka server-start
-E:\Kafka_28JAN\kafka_2.13-2.7.0\bin>windows\kafka-server-start.bat ..\config\server.properties
+E:\Kafka_28JAN\kafka_2.13-2.7.0\bin>
+
+windows\kafka-server-start.bat ..\config\server.properties
 
 Create topic
 kafka-topics --bootstrap-server localhost:9092 --topic first_topic --create --partitions 3 replication-factor 1
 kafka-topics --bootstrap-server localhost:9092 --topic twitter_tweets --create --partitions 6 replication-factor 1
 
-kafka-topics.bat --zookeeper localhost:2181 --create --topic Test123 --partitions 1 --replication-factor 1
+
 
 kafka-topics --zookeeper localhost:2181 --list
 kafka-topics --bootstrap-server localhost:9092 --list
@@ -100,6 +104,38 @@ E:\Kafka\kafka_2.12-2.5.0\bin>windows\kafka-consumer-groups.bat --bootstrap-serv
 windows\kafka-consumer-groups.bat --bootstrap-server 127.0.0.1:9092 --describe --group mygroup
 windows\kafka-consumer-groups.bat --bootstrap-server 127.0.0.1:9092 --describe --group mygroup2
 windows\kafka-console-consumer.bat --bootstrap-server 127.0.0.1:9092 --topic first_topic --group mygroup3
+
+------------09FEB2021--------
+
+First the producer will serialize the key and vlue objects to ByteArrays
+https://kafka-python.readthedocs.io/en/master/apidoc/KafkaProducer.html
+bootstrap.servers
+bootstrap_servers – ‘host[:port]’ string (or list of ‘host[:port]’ strings) that the producer should contact to bootstrap initial cluster metadata. This does not have to be the full node list. It just needs to have at least one broker that will respond to a Metadata API Request. Default port is 9092. If no servers are specified, will default to localhost:9092.
+key.serializer
+value.serializer
+
+----
+Ways to Send messages Fire and forget
+fire-and-forget
+Synchronous send
+Asynchronous
+Partition 1 replication 3
+Broker 1 --> selected as leader -> 100mgs
+Broker 2 --> follower
+
+max.in.flight.requests.per.connection
+request.timeout.ms
+max.block.ms
+max.request.size
+
+-
+kafka-topics.bat --zookeeper localhost:2181 --create --topic Multibrokertopic --partitions 3 --replication-factor 3
+E:\Kafka_28JAN\kafka_2.13-2.7.0\bin>windows\kafka-topics --zookeeper localhost:2181 --describe --topic Multibrokertopic
+
+Get the list of active brokers 
+E:\Kafka_28JAN\kafka_2.13-2.7.0\bin\windows>zookeeper-shell.bat localhost:2181  ls /brokers/ids
+E:\Kafka_28JAN\kafka_2.13-2.7.0\bin\windows>zookeeper-shell.bat localhost:2181  ls /brokers/topics
+E:\Kafka_28JAN\kafka_2.13-2.7.0\bin\windows>zookeeper-shell.bat localhost:2181  ls /brokers/ids/0
 
 
 
